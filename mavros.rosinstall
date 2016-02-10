@@ -1,6 +1,6 @@
 - git:
     local-name: mavros
-    uri: https://github.com/darknight-007/mavros.git
+    uri: https://github.com/darknight-007/mavros-nsf-student-competition.git
     version: 0.17.0
 
 - git:
