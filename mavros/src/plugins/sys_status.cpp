@@ -673,7 +673,7 @@ private:
 	void heartbeat_cb(const ros::TimerEvent &event) {
 		mavlink_message_t msg;
 		mavlink_msg_heartbeat_pack_chan(UAS_PACK_CHAN(uas), &msg,
-				MAV_TYPE_ONBOARD_CONTROLLER,
+				MAV_TYPE_GCS,
 				MAV_AUTOPILOT_INVALID,
 				MAV_MODE_MANUAL_ARMED,
 				0,
