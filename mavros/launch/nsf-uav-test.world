@@ -129,7 +129,7 @@
         <self_collide>0</self_collide>
         <kinematic>0</kinematic>
       </link>
-      <link name='f450/robot_camera'>
+      <link name='f450/uav_camera_front'>
         <pose frame=''>0.12 0 0.06 0 -0 0</pose>
         <inertial>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -170,7 +170,7 @@
             <cameraInfoTopicName>camera_info</cameraInfoTopicName>
             <updateRate>10.0</updateRate>
             <cameraName>uav_camera_front</cameraName>
-            <frameName>f450/robot_camera</frameName>
+            <frameName>f450/uav_camera_front</frameName>
             <CxPrime>320.5</CxPrime>
             <Cx>320.5</Cx>
             <Cy>240.5</Cy>
@@ -187,7 +187,7 @@
         <kinematic>0</kinematic>
         <gravity>1</gravity>
       </link>
-      <link name='f450/robot_camera_down'>
+      <link name='f450/uav_camera_down'>
         <pose frame=''>-0.12 0 0.01 0 1.57079 0</pose>
         <inertial>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -228,7 +228,7 @@
             <cameraInfoTopicName>camera_info</cameraInfoTopicName>
             <updateRate>10.0</updateRate>
             <cameraName>uav_camera_down</cameraName>
-            <frameName>f450/robot_camera_down</frameName>
+            <frameName>f450/uav_camera_down</frameName>
             <CxPrime>320.5</CxPrime>
             <Cx>320.5</Cx>
             <Cy>240.5</Cy>
@@ -246,7 +246,7 @@
         <gravity>1</gravity>
       </link>
       <joint name='f450/front_cam_joint' type='revolute'>
-        <child>f450/robot_camera_front</child>
+        <child>f450/uav_camera_front</child>
         <parent>base_link</parent>
         <axis>
           <xyz>1 0 0</xyz>
@@ -264,7 +264,7 @@
         </axis>
       </joint>
       <joint name='f450/down_cam_joint' type='revolute'>
-        <child>f450/robot_camera_down</child>
+        <child>f450/uav_camera_down</child>
         <parent>base_link</parent>
         <axis>
           <xyz>1 0 0</xyz>
