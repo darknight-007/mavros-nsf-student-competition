@@ -7,7 +7,6 @@ from mavros_msgs.srv import WaypointSetCurrentRequest
 from mavros_msgs.msg import Waypoint
 from mavros_msgs.srv import SetMode
 from mavros_msgs.srv import CommandBool
-from subprocess import call
 
 #
 #+---+------+------+---------+---------------+----------------+-------------------+------+-----+---------------+---------------+-------+
@@ -86,7 +85,6 @@ if __name__ == "__main__":
     wpPushRequest.waypoints.append(createWaypoint(5.0,47.3977394104,8.54559516907,11.0))
     wpPushRequest.waypoints.append(createLand(47.3977432251,8.54559516907,0.0))
     print(waypointPushService.call(wpPushRequest))
-    call("rosrun mavros mavwp setcur 0")
 
     rospy.sleep(1)
     arm = rospy.ServiceProxy('mavros/cmd/arming', CommandBool)

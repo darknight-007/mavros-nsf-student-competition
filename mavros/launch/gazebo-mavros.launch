@@ -53,5 +53,7 @@
     <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
   </group>
 
+ <node name="rqt_gui" pkg="rqt_gui" type="rqt_gui"/>
+
 
 </launch>
