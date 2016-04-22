@@ -7,18 +7,8 @@ from mavros_msgs.srv import WaypointSetCurrentRequest
 from mavros_msgs.msg import Waypoint
 from mavros_msgs.srv import SetMode
 from mavros_msgs.srv import CommandBool
-
-#
-#+---+------+------+---------+---------------+----------------+-------------------+------+-----+---------------+---------------+-------+
-#| # | Curr | Auto |  Frame  |    Command    |       P1       |         P2        |  P3  |  P4 |     X Lat     |     Y Long    | Z Alt |
-#+---+------+------+---------+---------------+----------------+-------------------+------+-----+---------------+---------------+-------+
-#| 0 | Yes  | Yes  | GRA (3) |  TAKEOFF (22) | 0.261799395084 | 2.30242081791e-38 | -0.0 | 0.0 | 47.3978614807 | 8.54560279846 |  25.0 |
-#| 1 |  No  | Yes  | GRA (3) | WAYPOINT (16) |      0.0       |        3.0        | -0.0 | 0.0 | 47.3978538513 | 8.54586410522 |  11.0 |
-#| 2 |  No  | Yes  | GRA (3) | WAYPOINT (16) |      0.0       |        3.0        | -0.0 | 0.0 | 47.3977279663 | 8.54585456848 |  11.0 |
-#| 3 |  No  | Yes  | GRA (3) | WAYPOINT (16) |      0.0       |        3.0        | -0.0 | 0.0 | 47.3977394104 | 8.54559516907 |  11.0 |
-#| 4 |  No  | Yes  | GRA (3) |   LAND (21)   |      25.0      |        3.0        | -0.0 | 0.0 | 47.3977432251 | 8.54559516907 |  0.0  |
-#+---+------+------+---------+---------------+----------------+-------------------+------+-----+---------------+---------------+-------+
-#
+from mavros_msgs.srv import WaypointSetCurrent
+from mavros_msgs.srv import WaypointSetCurrentRequest
 
 
 def createTakeoffCurr(_lat, _lon, _alt):
@@ -77,14 +67,29 @@ if __name__ == "__main__":
     rospy.wait_for_service('/mavros/mission/push')
     rospy.wait_for_service('/mavros/set_mode')
 
+#+---+------+------+---------+---------------+----------------+-------------------+------+-----+---------------+----------------+-------+
+#| # | Curr | Auto |  Frame  |    Command    |       P1       |         P2        |  P3  |  P4 |     X Lat     |     Y Long     | Z Alt |
+#+---+------+------+---------+---------------+----------------+-------------------+------+-----+---------------+----------------+-------+
+#| 0 | Yes  | Yes  | GRA (3) |  TAKEOFF (22) | 0.261799395084 | 1.34911172674e-17 | -0.0 | 0.0 | 39.9414863586 | -75.1987991333 |  25.0 |
+#| 1 |  No  | Yes  | GRA (3) | WAYPOINT (16) |      0.0       |        0.0        | -0.0 | 0.0 | 39.9414978027 | -75.1984710693 |  25.0 |
+#| 2 |  No  | Yes  | GRA (3) | WAYPOINT (16) |      0.0       |        0.0        | -0.0 | 0.0 | 39.9412651062 | -75.1984329224 |  25.0 |
+#| 3 |  No  | Yes  | GRA (3) |   LAND (21)   |      25.0      |        0.0        | -0.0 | 0.0 | 39.9412994385 | -75.1987991333 |  0.0  |
+#+---+------+------+---------+---------------+----------------+-------------------+------+-----+---------------+----------------+-------+
+
+
+
     waypointPushService = rospy.ServiceProxy('/mavros/mission/push', WaypointPush)
     wpPushRequest = WaypointPushRequest()
-    wpPushRequest.waypoints.append(createTakeoffCurr(47.3978614807, 8.54560279846,11.0))
-    wpPushRequest.waypoints.append(createWaypoint(5.0,47.3978538513,8.54586410522,11.0))
-    wpPushRequest.waypoints.append(createWaypoint(5.0,47.3977279663,8.54585456848,11.0)) 
-    wpPushRequest.waypoints.append(createWaypoint(5.0,47.3977394104,8.54559516907,11.0))
-    wpPushRequest.waypoints.append(createLand(47.3977432251,8.54559516907,0.0))
+    wpPushRequest.waypoints.append(createTakeoffCurr(39.9414863586, -75.1987991333,11.0))
+    wpPushRequest.waypoints.append(createWaypoint(5.0,39.9414978027,-75.1984710693,11.0))
+    wpPushRequest.waypoints.append(createWaypoint(5.0,39.9412651062,-75.1984329224,11.0)) 
+    wpPushRequest.waypoints.append(createLand(39.9412994385, -75.1987991333,0.0))
     print(waypointPushService.call(wpPushRequest))
+
+    waypointSetCurrService = rospy.ServiceProxy('/mavros/mission/set_current', WaypointSetCurrent)
+    wpSetCurrentRequest = WaypointSetCurrentRequest()
+    print(waypointSetCurrService.call(wpSetCurrentRequest))
+    
 
     rospy.sleep(1)
     arm = rospy.ServiceProxy('mavros/cmd/arming', CommandBool)

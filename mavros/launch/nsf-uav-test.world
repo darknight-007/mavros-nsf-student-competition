@@ -1,5 +1,13 @@
 <sdf version='1.5'>
   <world name='default'>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>39.9412823765083</latitude_deg>
+ <longitude_deg>-75.19882472063426</longitude_deg>
+      <elevation>182.0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <!-- A global light source -->
     <light name='sun' type='directional'>
       <cast_shadows>1</cast_shadows>
       <pose frame=''>0 0 10 0 -0 0</pose>
